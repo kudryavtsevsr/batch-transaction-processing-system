@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import {
+  Container,
+  Typography,
+  Button,
+  Box,
+  AppBar,
+  Toolbar,
+} from '@mui/material';
+import { TransactionTable } from './components/TransactionTable';
+import { BatchTransferDialog } from './components/BatchTransferDialog';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isBatchDialogOpen, setIsBatchDialogOpen] = useState(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box sx={{ width: '100%', minHeight: '100vh', bgcolor: '#f5f5f5' }}>
+      <AppBar position="static" elevation={0}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Batch Transaction Processing System
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Container maxWidth={false} sx={{ mt: 3, px: { xs: 2, sm: 3 } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3, width: '100%' }}>
+          <Typography variant="h5">Transactions</Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setIsBatchDialogOpen(true)}
+          >
+            Batch Transfer
+          </Button>
+        </Box>
+        <Box sx={{ width: '100%', height: '100%' }}>
+          <TransactionTable />
+        </Box>
+        <BatchTransferDialog
+          open={isBatchDialogOpen}
+          onClose={() => setIsBatchDialogOpen(false)}
+        />
+      </Container>
+    </Box>
+  );
 }
 
-export default App
+export default App;
