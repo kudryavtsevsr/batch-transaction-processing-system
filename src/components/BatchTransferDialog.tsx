@@ -145,6 +145,11 @@ export const BatchTransferDialog: React.FC<BatchTransferDialogProps> = ({
               error={formik.touched.batchName && Boolean(formik.errors.batchName)}
               helperText={formik.touched.batchName && formik.errors.batchName}
               sx={{ mb: 2 }}
+              inputProps={{
+                'aria-label': 'Batch Transfer Name',
+                'data-testid': 'textfield-Batch Transfer Name',
+                name: 'batchName'
+              }}
             />
             <FormControl fullWidth sx={{ mb: 2 }}>
               <InputLabel>Approver</InputLabel>
@@ -154,6 +159,9 @@ export const BatchTransferDialog: React.FC<BatchTransferDialogProps> = ({
                 value={formik.values.approver}
                 onChange={formik.handleChange}
                 error={formik.touched.approver && Boolean(formik.errors.approver)}
+                inputProps={{
+                  name: 'approver'
+                }}
               >
                 {MOCK_APPROVERS.map((approver) => (
                   <MenuItem key={approver} value={approver}>
@@ -169,6 +177,8 @@ export const BatchTransferDialog: React.FC<BatchTransferDialogProps> = ({
                 hidden
                 accept=".csv"
                 onChange={handleFileUpload}
+                id="csv-upload"
+                aria-label="Upload CSV"
               />
             </Button>
           </Box>
@@ -261,11 +271,9 @@ export const BatchTransferDialog: React.FC<BatchTransferDialogProps> = ({
         </Stepper>
         {renderStepContent(activeStep)}
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
-          {activeStep !== 0 && (
-            <Button onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-          )}
+          <Button sx={{ mr: 1 }} onClick={handleBack} disabled={activeStep === 0}>
+            Back
+          </Button>
           <Button
             variant="contained"
             onClick={handleNext}
