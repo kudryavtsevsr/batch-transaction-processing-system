@@ -156,6 +156,7 @@ export const BatchTransferDialog: React.FC<BatchTransferDialogProps> = ({
               <Select
                 id="approver"
                 name="approver"
+                label="Approver"
                 value={formik.values.approver}
                 onChange={formik.handleChange}
                 error={formik.touched.approver && Boolean(formik.errors.approver)}
