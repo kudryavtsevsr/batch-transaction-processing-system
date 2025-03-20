@@ -85,7 +85,7 @@ export const BatchTransferDialog: React.FC<BatchTransferDialogProps> = ({
           const errors: ValidationError[] = [];
           const transactions: Transaction[] = [];
 
-          results.data.forEach((record: CSVRecord, index) => {
+          (results.data as CSVRecord[]).forEach((record, index) => {
             const recordErrors = validateTransaction(record, index + 1);
             if (recordErrors.length > 0) {
               errors.push(...recordErrors);

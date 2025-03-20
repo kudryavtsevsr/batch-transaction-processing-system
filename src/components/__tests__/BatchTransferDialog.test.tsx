@@ -1,6 +1,5 @@
-import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BatchTransferDialog } from '../BatchTransferDialog';
 import { useTransactionStore } from '../../store';
 import Papa from 'papaparse';
@@ -13,7 +12,7 @@ vi.mock('../../store', () => ({
 }));
 
 vi.mock('papaparse', () => {
-  const parseFn = (file: File, options: ParseConfig<any> = {}) => {
+  const parseFn = (_: File, options: ParseConfig<any> = {}) => {
     if (options?.complete) {
       const results = {
         data: [],
@@ -152,7 +151,7 @@ describe('BatchTransferDialog', () => {
       },
     ];
 
-    (Papa.parse as any).mockImplementation((file: File, options: ParseConfig<any> = {}) => {
+    (Papa.parse as any).mockImplementation((_: File, options: ParseConfig<any> = {}) => {
       if (options?.complete) {
         const results = {
           data: mockCSVData,
@@ -191,7 +190,7 @@ describe('BatchTransferDialog', () => {
       },
     ];
 
-    (Papa.parse as any).mockImplementation((file: File, options: ParseConfig<any> = {}) => {
+    (Papa.parse as any).mockImplementation((_: File, options: ParseConfig<any> = {}) => {
       if (options?.complete) {
         const results = {
           data: mockCSVData,
@@ -208,7 +207,7 @@ describe('BatchTransferDialog', () => {
       }
     });
 
-    const { container } = render(<BatchTransferDialog open={true} onClose={mockOnClose} />);
+    render(<BatchTransferDialog open={true} onClose={mockOnClose} />);
 
     // Act - Complete Step 1
     await userEvent.type(screen.getByTestId('textfield-Batch Transfer Name'), 'Test Batch');

@@ -1,7 +1,6 @@
 import React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Tooltip, Box } from '@mui/material';
-import { Transaction } from '../types';
 import { useTransactionStore } from '../store';
 
 const columns: GridColDef[] = [
